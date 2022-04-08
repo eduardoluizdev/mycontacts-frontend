@@ -1,5 +1,25 @@
 const defaultTheme = {
-  backgroundColor: '#f6f5fc',
+  colors: {
+    background: '#f6f5fc',
+    primary: {
+      lighter: '#E0E3FF',
+      light: '#6674f4',
+      main: '#5061fc',
+      dark: '#3346f0',
+    },
+    danger: {
+      lighter: '',
+      light: '',
+      main: '#FC5050',
+      dark: '',
+    },
+    gray: {
+      lighter: '#E6E6E6',
+      light: '#BCBCBC',
+      main: '#333333',
+      dark: '#222222',
+    },
+  },
 };
 
 export default defaultTheme;
