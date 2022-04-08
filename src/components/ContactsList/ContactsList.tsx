@@ -1,4 +1,10 @@
-import { Container, Header } from './styles';
+import {
+  Container, Header, ListContainer, Card,
+} from './styles';
+
+import arrow from '../../assets/images/icons/arrow.svg';
+import edit from '../../assets/images/icons/edit.svg';
+import trash from '../../assets/images/icons/trash.svg';
 
 export function ContactsList() {
   return (
@@ -7,6 +13,72 @@ export function ContactsList() {
         <strong>3 Contatos</strong>
         <a href="/">Novo contato</a>
       </Header>
+
+      <ListContainer>
+        <header>
+          <button type="button">
+            <span>Nome</span>
+            <img src={arrow} alt="Icone de Seta" />
+          </button>
+        </header>
+
+        <Card>
+          <div className="info">
+            <div className="contact-name">
+              <strong>Eduardo Luiz</strong>
+              <small>instagram</small>
+            </div>
+            <span>hello@eduardoluiz.dev</span>
+            <span>(21) 99999-9999</span>
+          </div>
+          <div className="actions">
+            <a href="/">
+              <img src={edit} alt="edit" />
+            </a>
+            <button type="button">
+              <img src={trash} alt="trash" />
+            </button>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="info">
+            <div className="contact-name">
+              <strong>Eduardo Luiz</strong>
+              <small>instagram</small>
+            </div>
+            <span>hello@eduardoluiz.dev</span>
+            <span>(21) 99999-9999</span>
+          </div>
+          <div className="actions">
+            <a href="/">
+              <img src={edit} alt="edit" />
+            </a>
+            <button type="button">
+              <img src={trash} alt="trash" />
+            </button>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="info">
+            <div className="contact-name">
+              <strong>Eduardo Luiz</strong>
+              <small>instagram</small>
+            </div>
+            <span>hello@eduardoluiz.dev</span>
+            <span>(21) 99999-9999</span>
+          </div>
+          <div className="actions">
+            <a href="/">
+              <img src={edit} alt="edit" />
+            </a>
+            <button type="button">
+              <img src={trash} alt="trash" />
+            </button>
+          </div>
+        </Card>
+      </ListContainer>
     </Container>
   );
 }
