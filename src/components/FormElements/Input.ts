@@ -1,7 +1,11 @@
 import { InputHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Input = styled.input<InputHTMLAttributes<HTMLInputElement>>`
+type ImputProps = InputHTMLAttributes<HTMLInputElement> & {
+  error?: boolean;
+};
+
+export const Input = styled.input<ImputProps>`
   width: 100%;
   background: #fff;
   box-shadow: 0px 4px 10px rgba(0, 0 ,0, 0.05);
@@ -16,4 +20,13 @@ export const Input = styled.input<InputHTMLAttributes<HTMLInputElement>>`
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
+
+  ${({ theme, error }) => error && css`
+    color: ${theme.colors.danger.main};
+    border-color: ${theme.colors.danger.main};
+
+    &:focus {
+    border-color: ${theme.colors.danger.main};
+  }
+  `}
 `;
