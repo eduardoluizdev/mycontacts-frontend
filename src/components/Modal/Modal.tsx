@@ -10,7 +10,7 @@ type ModalProps = {
 
 export function Modal({ title, paragraph, danger = false }:ModalProps) {
   return (
-    <ReactPortal>
+    <ReactPortal locale="modal-root">
       <Overlay>
         <Container danger={danger}>
           <h1>{title}</h1>

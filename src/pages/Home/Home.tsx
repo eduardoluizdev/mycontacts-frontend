@@ -1,11 +1,11 @@
 import {
-  ContactsList, PageWrapper, SearchInput,
+  ContactsList, Loader, PageWrapper, SearchInput,
 } from '../../components';
 
 export function Home() {
   return (
     <PageWrapper>
-      {/* <Modal title="Titulo do Modal" paragraph="Paragrafo do modal" danger /> */}
+      <Loader />
       <SearchInput />
       <ContactsList />
     </PageWrapper>

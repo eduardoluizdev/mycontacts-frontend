@@ -8,3 +8,4 @@ export * from './ContactForm';
 export * from './FormGroup';
 export * from './Modal';
 export * from './ReactPortal';
+export * from './Loader';
