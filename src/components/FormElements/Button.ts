@@ -1,8 +1,12 @@
 import { ButtonHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Button = styled.button<ButtonHTMLAttributes<HTMLButtonElement>>`
-  width: 100%;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  danger?: boolean;
+  ghost?: boolean;
+};
+
+export const Button = styled.button<ButtonProps>`
   height: 52px;
   border: none;
   background: ${({ theme }) => theme.colors.primary.main};
@@ -27,4 +31,31 @@ export const Button = styled.button<ButtonHTMLAttributes<HTMLButtonElement>>`
     cursor: default;
     pointer-events: none;
   }
+
+  ${({ theme, danger }) => danger && css`
+    background:  ${theme.colors.danger.main};
+
+    &:hover {
+     background: ${theme.colors.danger.light};
+    }
+
+    &:active {
+      background: ${theme.colors.danger.dark};
+    }
+  `}
+
+  ${({ theme, ghost }) => ghost && css`
+    background:  none;
+    color: ${theme.colors.gray.light};
+    font-weight: normal;
+    box-shadow: none;
+
+    &:hover {
+     background: none;
+    }
+
+    &:active {
+      background: none;
+    }
+  `}
 `;

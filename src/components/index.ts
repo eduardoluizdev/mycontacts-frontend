@@ -6,3 +6,5 @@ export * from './PageHeader';
 export * from './FormElements';
 export * from './ContactForm';
 export * from './FormGroup';
+export * from './Modal';
+export * from './ReactPortal';

@@ -8,10 +8,9 @@ const defaultTheme = {
       dark: '#3346f0',
     },
     danger: {
-      lighter: '',
-      light: '',
+      light: '#F97171',
       main: '#FC5050',
-      dark: '',
+      dark: '#F63131',
     },
     gray: {
       lighter: '#E6E6E6',
