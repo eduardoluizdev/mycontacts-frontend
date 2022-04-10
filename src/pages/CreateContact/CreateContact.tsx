@@ -1,9 +1,9 @@
-import { PageWrapper } from '../../components';
+import { PageWrapper, PageHeader } from '../../components';
 
 export function CreateContact() {
   return (
     <PageWrapper>
-      <h1>CreateContact page</h1>
+      <PageHeader title="Novo contato" />
     </PageWrapper>
   );
 }
