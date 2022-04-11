@@ -27,6 +27,7 @@
     "import/prefer-default-export": "off",
     "import/no-cycle": "off",
     "react/require-default-props": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "react/jsx-no-bind": "off"
   }
 }

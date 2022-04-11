@@ -1,4 +1,4 @@
-import { ContactForm, PageHeader, PageWrapper } from '../../components';
+import { ContactForm, PageHeader, PageWrapper } from 'components';
 
 export function EditContact() {
   return (

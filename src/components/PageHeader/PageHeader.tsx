@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
+import arrow from 'assets/images/icons/arrow.svg';
 import { Container } from './styles';
-
-import arrow from '../../assets/images/icons/arrow.svg';
 
 type PageHeaderProps = {
   title: string

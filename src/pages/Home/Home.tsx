@@ -1,6 +1,6 @@
 import {
   ContactsList, PageWrapper, SearchInput,
-} from '../../components';
+} from 'components';
 
 export function Home() {
   return (

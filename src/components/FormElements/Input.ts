@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 
 type ImputProps = InputHTMLAttributes<HTMLInputElement> & {
-  error?: boolean;
+  error?: boolean | string;
 };
 
 export const Input = styled.input<ImputProps>`

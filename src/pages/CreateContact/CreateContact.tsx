@@ -1,6 +1,6 @@
 import {
   PageWrapper, PageHeader, ContactForm,
-} from '../../components';
+} from 'components';
 
 export function CreateContact() {
   return (
