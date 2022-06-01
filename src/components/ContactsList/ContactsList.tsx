@@ -4,15 +4,23 @@ import arrow from 'assets/images/icons/arrow.svg';
 import edit from 'assets/images/icons/edit.svg';
 import trash from 'assets/images/icons/trash.svg';
 
+import { ContactList } from 'pages';
 import {
   Container, Header, ListContainer, Card,
 } from './styles';
 
-export function ContactsList() {
+type ContactsListProps = {
+  contacts: ContactList
+};
+
+export function ContactsList({ contacts }: ContactsListProps) {
   return (
     <Container>
       <Header>
-        <strong>3 Contatos</strong>
+        <strong>
+          {contacts.length}
+          {contacts.length === 1 ? ' contato' : ' contatos'}
+        </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
 
@@ -24,24 +32,26 @@ export function ContactsList() {
           </button>
         </header>
 
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Eduardo Luiz</strong>
-              <small>instagram</small>
+        {contacts.map((contact) => (
+          <Card key={contact.id}>
+            <div className="info">
+              <div className="contact-name">
+                <strong>{contact.name}</strong>
+                {contact.category_name && <small>{contact.category_name}</small>}
+              </div>
+              <span>{contact.email}</span>
+              <span>{contact.phone}</span>
             </div>
-            <span>hello@eduardoluiz.dev</span>
-            <span>(21) 99999-9999</span>
-          </div>
-          <div className="actions">
-            <Link to="/edit/123">
-              <img src={edit} alt="edit" />
-            </Link>
-            <button type="button">
-              <img src={trash} alt="trash" />
-            </button>
-          </div>
-        </Card>
+            <div className="actions">
+              <Link to={`/edit/${contact.id}`}>
+                <img src={edit} alt="edit" />
+              </Link>
+              <button type="button">
+                <img src={trash} alt="trash" />
+              </button>
+            </div>
+          </Card>
+        ))}
 
       </ListContainer>
     </Container>
