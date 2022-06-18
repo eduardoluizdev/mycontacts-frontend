@@ -4,11 +4,11 @@ import {
 import {
   ContactsList, Loader, PageWrapper, SearchInput,
 } from 'components';
-import { ContactDTO } from 'modules/contact.type';
+import { Contact } from 'modules/contact.type';
 import delay from 'utils/delay';
 
 export function Home() {
-  const [contacts, setContacts] = useState<ContactDTO[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [orderBy, setOrderBy] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -18,18 +18,25 @@ export function Home() {
   )), [contacts, searchTerm]);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
-      .then(async (res) => {
+    async function loadContacts() {
+      try {
+        setIsLoading(true);
+
+        const response = await fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`);
+
         await delay(500);
 
-        const data = await res.json();
+        const data = await response.json();
         setContacts(data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      } finally {
         setIsLoading(false);
-      });
+      }
+    }
+
+    loadContacts();
   }, [orderBy]);
 
   function handleToggleOrderBy() {

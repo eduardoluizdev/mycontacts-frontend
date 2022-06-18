@@ -4,13 +4,13 @@ import arrow from 'assets/images/icons/arrow.svg';
 import edit from 'assets/images/icons/edit.svg';
 import trash from 'assets/images/icons/trash.svg';
 
-import { ContactDTO } from 'modules/contact.type';
+import { Contact } from 'modules/contact.type';
 import {
   Container, Header, ListHeader, Card,
 } from './styles';
 
 type ContactsListProps = {
-  contacts: ContactDTO[]
+  contacts: Contact[]
   handleToggleOrderBy: () => void
   orderBy: 'asc' | 'desc'
 };
