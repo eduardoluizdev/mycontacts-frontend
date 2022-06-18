@@ -1,7 +1,15 @@
 import { ReactPortal } from '../ReactPortal';
 import { Overlay } from './style';
 
-export function Loader() {
+type LoaderProps = {
+  isLoading: boolean;
+};
+
+export function Loader({ isLoading }: LoaderProps) {
+  if (!isLoading) {
+    return null;
+  }
+
   return (
     <ReactPortal locale="loader-root">
       <Overlay>
