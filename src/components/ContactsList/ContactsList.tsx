@@ -26,12 +26,16 @@ export function ContactsList({ contacts, orderBy, handleToggleOrderBy }: Contact
         <Link to="/new">Novo contato</Link>
       </Header>
 
+      {contacts.length > 0
+      && (
       <ListHeader orderBy={orderBy}>
         <button type="button" onClick={handleToggleOrderBy}>
           <span>Nome</span>
+
           <img src={arrow} alt="Icone de Seta" />
         </button>
       </ListHeader>
+      )}
 
       {contacts.map((contact) => (
         <Card key={contact.id}>

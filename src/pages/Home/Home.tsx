@@ -1,10 +1,17 @@
-import { useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useMemo, useState,
+} from 'react';
 import { ContactsList, PageWrapper, SearchInput } from 'components';
 import { ContactDTO } from 'modules/contact.type';
 
 export function Home() {
   const [contacts, setContacts] = useState<ContactDTO[]>([]);
   const [orderBy, setOrderBy] = useState<'asc' | 'desc'>('asc');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const filteredContacts = useMemo(() => contacts.filter((contact) => (
+    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )), [contacts, searchTerm]);
 
   useEffect(() => {
     fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
@@ -20,11 +27,15 @@ export function Home() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
   }
 
+  function handleChangeSearchTerm(event: ChangeEvent<HTMLInputElement>) {
+    setSearchTerm(event.target.value);
+  }
+
   return (
     <PageWrapper>
-      <SearchInput />
+      <SearchInput searchTerm={searchTerm} handleChangeSearchTerm={handleChangeSearchTerm} />
       <ContactsList
-        contacts={contacts}
+        contacts={filteredContacts}
         orderBy={orderBy}
         handleToggleOrderBy={handleToggleOrderBy}
       />
