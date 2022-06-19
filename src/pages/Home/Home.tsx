@@ -1,5 +1,5 @@
 import {
-  ChangeEvent, useEffect, useMemo, useState,
+  ChangeEvent, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import {
   ContactsList, Loader, PageWrapper, SearchInput,
@@ -18,23 +18,24 @@ export function Home() {
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   )), [contacts, searchTerm]);
 
-  useEffect(() => {
-    async function loadContacts() {
-      try {
-        setIsLoading(true);
+  const loadContacts = useCallback(async () => {
+    try {
+      setIsLoading(true);
 
-        const contactsList = await ContactsService.listContacts(orderBy);
+      const contactsList = await ContactsService.listContacts(orderBy);
 
-        setContacts(contactsList);
-      } catch (error) {
-        setHasError(true);
-      } finally {
-        setIsLoading(false);
-      }
+      setHasError(false);
+      setContacts(contactsList);
+    } catch (error) {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
-
-    loadContacts();
   }, [orderBy]);
+
+  useEffect(() => {
+    loadContacts();
+  }, [loadContacts]);
 
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
@@ -42,6 +43,10 @@ export function Home() {
 
   function handleChangeSearchTerm(event: ChangeEvent<HTMLInputElement>) {
     setSearchTerm(event.target.value);
+  }
+
+  function handleTryAgain() {
+    loadContacts();
   }
 
   return (
@@ -54,6 +59,7 @@ export function Home() {
         orderBy={orderBy}
         handleToggleOrderBy={handleToggleOrderBy}
         hasError={hasError}
+        handleTryAgain={handleTryAgain}
       />
     </PageWrapper>
   );

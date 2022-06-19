@@ -16,10 +16,11 @@ type ContactsListProps = {
   handleToggleOrderBy: VoidFunction
   orderBy: 'asc' | 'desc'
   hasError: boolean
+  handleTryAgain: VoidFunction
 };
 
 export function ContactsList({
-  contacts, orderBy, handleToggleOrderBy, hasError,
+  contacts, orderBy, handleToggleOrderBy, hasError, handleTryAgain,
 }: ContactsListProps) {
   return (
     <Container>
@@ -34,50 +35,54 @@ export function ContactsList({
         <Link to="/new">Novo contato</Link>
       </Header>
 
-      {contacts.length > 0
-      && (
-      <ListHeader orderBy={orderBy}>
-        <button type="button" onClick={handleToggleOrderBy}>
-          <span>Nome</span>
-
-          <img src={arrow} alt="Icone de Seta" />
-        </button>
-      </ListHeader>
-      )}
-
       {hasError && (
       <ErrorContainer>
         <img src={sad} alt="sad" />
 
         <div className="details">
           <strong>Ocorreu um erro ao obter os seus contatos!</strong>
-          <Button type="button">
+          <Button type="button" onClick={handleTryAgain}>
             Tentar Novamente
           </Button>
         </div>
       </ErrorContainer>
       )}
 
-      {contacts.map((contact) => (
-        <Card key={contact.id}>
-          <div className="info">
-            <div className="contact-name">
-              <strong>{contact.name}</strong>
-              {contact.category_name && <small>{contact.category_name}</small>}
-            </div>
-            <span>{contact.email}</span>
-            <span>{contact.phone}</span>
-          </div>
-          <div className="actions">
-            <Link to={`/edit/${contact.id}`}>
-              <img src={edit} alt="edit" />
-            </Link>
-            <button type="button">
-              <img src={trash} alt="trash" />
+      {!hasError && (
+      <>
+        {contacts.length > 0 && (
+          <ListHeader orderBy={orderBy}>
+            <button type="button" onClick={handleToggleOrderBy}>
+              <span>Nome</span>
+
+              <img src={arrow} alt="Icone de Seta" />
             </button>
-          </div>
-        </Card>
-      ))}
+          </ListHeader>
+        )}
+
+        {contacts.map((contact) => (
+          <Card key={contact.id}>
+            <div className="info">
+              <div className="contact-name">
+                <strong>{contact.name}</strong>
+                {contact.category_name && <small>{contact.category_name}</small>}
+              </div>
+              <span>{contact.email}</span>
+              <span>{contact.phone}</span>
+            </div>
+            <div className="actions">
+              <Link to={`/edit/${contact.id}`}>
+                <img src={edit} alt="edit" />
+              </Link>
+              <button type="button">
+                <img src={trash} alt="trash" />
+              </button>
+            </div>
+          </Card>
+        ))}
+
+      </>
+      )}
 
     </Container>
   );
