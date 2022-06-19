@@ -52,14 +52,20 @@ export function Home() {
   return (
     <PageWrapper>
       <Loader isLoading={isLoading} />
-      <SearchInput searchTerm={searchTerm} handleChangeSearchTerm={handleChangeSearchTerm} />
+      {contacts.length > 0
+      && (
+        <SearchInput searchTerm={searchTerm} handleChangeSearchTerm={handleChangeSearchTerm} />
+      )}
 
       <ContactsList
-        contacts={filteredContacts}
+        contacts={contacts}
+        filteredContacts={filteredContacts}
         orderBy={orderBy}
         handleToggleOrderBy={handleToggleOrderBy}
         hasError={hasError}
         handleTryAgain={handleTryAgain}
+        isLoading={isLoading}
+        searchTerm={searchTerm}
       />
     </PageWrapper>
   );

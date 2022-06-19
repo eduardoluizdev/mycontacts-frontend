@@ -6,7 +6,7 @@ interface ListHeaderProps extends HTMLAttributes<HTMLElement> {
 }
 
 interface HeaderProps extends HTMLAttributes<HTMLElement> {
-  hasError: boolean;
+  justifyContent: string;
 }
 
 export const Container = styled.div`
@@ -15,9 +15,9 @@ export const Container = styled.div`
 
 export const Header = styled.header<HeaderProps>`
   display: flex;
-  justify-content: ${({ hasError }) => (hasError ? 'flex-end' : 'space-between')};
+  justify-content: ${({ justifyContent }) => justifyContent};
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.gray[100]};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.gray.lighter};
   padding-bottom: 16px;
 
   strong {
@@ -132,5 +132,33 @@ export const ErrorContainer = styled.div`
     button {
       margin-top: 8px;
     }
+  }
+`;
+
+export const EmptyListContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    color: ${({ theme }) => theme.colors.gray.light};
+    text-align: center;
+    margin-top: 8px;
+
+    strong {
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
+  }
+`;
+
+export const SearchNotFoundContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+
+  span {
+    color: ${({ theme }) => theme.colors.gray.light};
+    margin-left: 24px;
+    word-break: break-word;
   }
 `;
