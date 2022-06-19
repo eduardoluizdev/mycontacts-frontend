@@ -5,7 +5,7 @@ import {
   ContactsList, Loader, PageWrapper, SearchInput,
 } from 'components';
 import { Contact } from 'modules/contact.type';
-import delay from 'utils/delay';
+import ContactsService from 'services/ContactsService';
 
 export function Home() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -22,12 +22,9 @@ export function Home() {
       try {
         setIsLoading(true);
 
-        const response = await fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`);
+        const contactsList = await ContactsService.listContacts(orderBy);
 
-        await delay(500);
-
-        const data = await response.json();
-        setContacts(data);
+        setContacts(contactsList);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
@@ -46,6 +43,8 @@ export function Home() {
   function handleChangeSearchTerm(event: ChangeEvent<HTMLInputElement>) {
     setSearchTerm(event.target.value);
   }
+
+  console.log(process.env.REACT_APP_API_URL);
 
   return (
     <PageWrapper>
