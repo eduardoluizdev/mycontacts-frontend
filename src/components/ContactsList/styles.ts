@@ -1,17 +1,24 @@
+import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface ListHeaderProps extends React.HTMLAttributes<HTMLElement> {
+interface ListHeaderProps extends HTMLAttributes<HTMLElement> {
   orderBy: 'asc' | 'desc';
+}
+
+interface HeaderProps extends HTMLAttributes<HTMLElement> {
+  hasError: boolean;
 }
 
 export const Container = styled.div`
   margin-top: 32px;
 `;
 
-export const Header = styled.header`
+export const Header = styled.header<HeaderProps>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ hasError }) => (hasError ? 'flex-end' : 'space-between')};
   align-items: center;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.gray[100]};
+  padding-bottom: 16px;
 
   strong {
     color: ${({ theme }) => theme.colors.gray.dark};
@@ -104,6 +111,26 @@ export const Card = styled.div`
       background: transparent;
       border: none;
       margin-left: 8px;
+    }
+  }
+`;
+
+export const ErrorContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+
+  .details {
+    margin-left: 24px;
+
+    strong {
+      font-size: 22px;
+      color: ${({ theme }) => theme.colors.danger.main};
+      display: block;
+    }
+
+    button {
+      margin-top: 8px;
     }
   }
 `;

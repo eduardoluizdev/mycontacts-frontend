@@ -3,26 +3,34 @@ import { Link } from 'react-router-dom';
 import arrow from 'assets/images/icons/arrow.svg';
 import edit from 'assets/images/icons/edit.svg';
 import trash from 'assets/images/icons/trash.svg';
+import sad from 'assets/images/sad.svg';
 
 import { Contact } from 'modules/contact.type';
+import { Button } from 'components/FormElements';
 import {
-  Container, Header, ListHeader, Card,
+  Container, Header, ListHeader, Card, ErrorContainer,
 } from './styles';
 
 type ContactsListProps = {
   contacts: Contact[]
-  handleToggleOrderBy: () => void
+  handleToggleOrderBy: VoidFunction
   orderBy: 'asc' | 'desc'
+  hasError: boolean
 };
 
-export function ContactsList({ contacts, orderBy, handleToggleOrderBy }: ContactsListProps) {
+export function ContactsList({
+  contacts, orderBy, handleToggleOrderBy, hasError,
+}: ContactsListProps) {
   return (
     <Container>
-      <Header>
-        <strong>
-          {contacts.length}
-          {contacts.length === 1 ? ' contato' : ' contatos'}
-        </strong>
+      <Header hasError={hasError}>
+        {!hasError && (
+          <strong>
+            {contacts.length}
+            {contacts.length === 1 ? ' contato' : ' contatos'}
+          </strong>
+        )}
+
         <Link to="/new">Novo contato</Link>
       </Header>
 
@@ -35,6 +43,19 @@ export function ContactsList({ contacts, orderBy, handleToggleOrderBy }: Contact
           <img src={arrow} alt="Icone de Seta" />
         </button>
       </ListHeader>
+      )}
+
+      {hasError && (
+      <ErrorContainer>
+        <img src={sad} alt="sad" />
+
+        <div className="details">
+          <strong>Ocorreu um erro ao obter os seus contatos!</strong>
+          <Button type="button">
+            Tentar Novamente
+          </Button>
+        </div>
+      </ErrorContainer>
       )}
 
       {contacts.map((contact) => (

@@ -12,6 +12,7 @@ export function Home() {
   const [orderBy, setOrderBy] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const filteredContacts = useMemo(() => contacts.filter((contact) => (
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -26,8 +27,7 @@ export function Home() {
 
         setContacts(contactsList);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -44,16 +44,16 @@ export function Home() {
     setSearchTerm(event.target.value);
   }
 
-  console.log(process.env.REACT_APP_API_URL);
-
   return (
     <PageWrapper>
       <Loader isLoading={isLoading} />
       <SearchInput searchTerm={searchTerm} handleChangeSearchTerm={handleChangeSearchTerm} />
+
       <ContactsList
         contacts={filteredContacts}
         orderBy={orderBy}
         handleToggleOrderBy={handleToggleOrderBy}
+        hasError={hasError}
       />
     </PageWrapper>
   );

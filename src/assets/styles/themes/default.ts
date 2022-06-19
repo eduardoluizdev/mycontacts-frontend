@@ -17,6 +17,7 @@ const defaultTheme = {
       light: '#BCBCBC',
       main: '#333333',
       dark: '#222222',
+      100: '#E6E6E6',
     },
   },
 };
