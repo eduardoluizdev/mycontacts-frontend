@@ -13,7 +13,7 @@ const defaultTheme = {
       dark: '#F63131',
     },
     gray: {
-      lighter: '#E6E6E6',
+      lighter: '#E5E5E5',
       light: '#BCBCBC',
       main: '#333333',
       dark: '#222222',

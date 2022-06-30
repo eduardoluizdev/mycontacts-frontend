@@ -31,6 +31,7 @@ export function useErrors() {
   }
 
   return {
+    errors,
     setError,
     removeError,
     getErrorMessageByFieldName,

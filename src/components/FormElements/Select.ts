@@ -16,4 +16,9 @@ export const Select = styled.select<SelectHTMLAttributes<HTMLSelectElement>>`
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
+
+  &:disabled {
+    background: ${({ theme }) => theme.colors.gray.lighter};
+    border-color: ${({ theme }) => theme.colors.gray.light}
+  }
 `;
