@@ -1,6 +1,28 @@
 import APIError from 'errors/APIError';
 import delay from 'utils/delay';
 
+export type JSONValue =
+    | string
+    | number
+    | boolean
+    | { [x: string]: JSONValue }
+    | Array<JSONValue>;
+
+type HeadersProps = {
+  [name: string]: string
+};
+
+type MethodProps = {
+  body?: JSONValue;
+  headers?: HeadersProps;
+};
+
+type MakeRequestProps = {
+  body?: JSONValue;
+  headers?: HeadersProps;
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+};
+
 class HttpClient {
   baseURL: string;
 
@@ -8,35 +30,38 @@ class HttpClient {
     this.baseURL = baseURL;
   }
 
-  async get(path: string) {
-    await delay(500);
-
-    const response = await fetch(`${this.baseURL}${path}`);
-
-    let body = null;
-    const contentType = response.headers.get('Content-Type');
-
-    if (contentType?.includes('application/json')) {
-      body = await response.json();
-    }
-
-    if (response.ok) {
-      return body;
-    }
-
-    throw new APIError(response, body);
+  get(path:string, options?:MethodProps) {
+    return this.makeRequest(path, {
+      method: 'GET',
+      ...options,
+    });
   }
 
-  async post(path: string, body: any) {
+  post(path:string, options:MethodProps) {
+    return this.makeRequest(path, {
+      method: 'POST',
+      ...options,
+    });
+  }
+
+  async makeRequest(path: string, options: MakeRequestProps) {
     await delay(500);
 
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-    });
+    const headers = new Headers();
+
+    if (options.body) {
+      headers.append('Content-Type', 'application/json');
+    }
+
+    if (options.headers) {
+      Object.entries(options.headers).forEach(([name, headerValue]) => {
+        headers.append(name, headerValue);
+      });
+    }
 
     const response = await fetch(`${this.baseURL}${path}`, {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: options.method,
+      body: JSON.stringify(options.body),
       headers,
     });
 

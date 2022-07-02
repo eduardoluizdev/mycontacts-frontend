@@ -1,3 +1,4 @@
+import { Contact } from 'modules/contact.type';
 import HttpClient from './utils/HttpClient';
 
 class ContactsService {
@@ -11,8 +12,10 @@ class ContactsService {
     return this.httpClient.get(`/contacts?orderBy=${orderBy}`);
   }
 
-  async createContacts(contact:any) {
-    return this.httpClient.post('/contacts', contact);
+  async createContacts(contact:Contact) {
+    return this.httpClient.post('/contacts', {
+      body: contact,
+    });
   }
 }
 
