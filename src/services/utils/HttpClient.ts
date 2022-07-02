@@ -45,7 +45,7 @@ class HttpClient {
   }
 
   async makeRequest(path: string, options: MakeRequestProps) {
-    await delay(500);
+    await delay(3500);
 
     const headers = new Headers();
 

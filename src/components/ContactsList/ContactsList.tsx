@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import { Link } from 'react-router-dom';
 
+import { Button } from 'components';
+
 import arrow from 'assets/images/icons/arrow.svg';
 import edit from 'assets/images/icons/edit.svg';
 import trash from 'assets/images/icons/trash.svg';
@@ -9,7 +11,7 @@ import emptyBox from 'assets/images/empty-box.svg';
 import magnifierQuestion from 'assets/images/magnifier-question.svg';
 
 import { Contact } from 'modules/contact.type';
-import { Button } from 'components/FormElements';
+
 import {
   Container,
   Header,
@@ -70,7 +72,7 @@ export function ContactsList({
 
         <div className="details">
           <strong>Ocorreu um erro ao obter os seus contatos!</strong>
-          <Button type="button" onClick={handleTryAgain}>
+          <Button onClick={handleTryAgain}>
             Tentar Novamente
           </Button>
         </div>

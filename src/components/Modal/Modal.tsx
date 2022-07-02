@@ -1,4 +1,4 @@
-import { Button } from '../FormElements';
+import { Button } from '..';
 import { ReactPortal } from '../ReactPortal';
 import { Container, Footer, Overlay } from './styles';
 
@@ -17,8 +17,8 @@ export function Modal({ title, paragraph, danger = false }:ModalProps) {
           <p>{paragraph}</p>
 
           <Footer>
-            <Button type="button" ghost>Cancelar</Button>
-            <Button type="button" danger={danger}>Deletar</Button>
+            <Button ghost>Cancelar</Button>
+            <Button danger={danger}>Deletar</Button>
           </Footer>
         </Container>
       </Overlay>

@@ -17,6 +17,11 @@ export const Input = styled.input<ImputProps>`
   font-size: 16px;
   transition: border-color 0.2s ease-in;
 
+  &:disabled {
+    background: ${({ theme }) => theme.colors.gray.lighter};
+    border-color: ${({ theme }) => theme.colors.gray.light}
+  }
+
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }

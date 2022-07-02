@@ -5,13 +5,13 @@ import { useErrors } from 'hooks';
 import { isEmailValid } from 'utils';
 import CategoriesService from 'services/CategoriesService';
 import formatPhone from 'utils/formatPhone';
-import { FormGroup } from '..';
-import { Button, Input, Select } from '../FormElements';
+import { Button, FormGroup } from '..';
+import { Input, Select } from '../FormElements';
 import { Container as Form, ButtonContainer } from './style';
 
 type ContactFormProps = {
   buttonLabel: string
-  onSubmit: (formData:ContactDTO) => void
+  onSubmit: (formData:ContactDTO) => Promise<void>
 };
 
 export type ContactDTO = {
@@ -33,6 +33,7 @@ export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
   const [categoryId, setCategoryId] = useState('');
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     errors, setError, removeError, getErrorMessageByFieldName,
@@ -82,15 +83,19 @@ export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
     setPhone(formatPhone(target.value));
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    onSubmit({
+    setIsSubmitting(true);
+
+    await onSubmit({
       name,
       email,
       phone,
       categoryId,
     });
+
+    setIsSubmitting(false);
   }
 
   return (
@@ -102,6 +107,7 @@ export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
           onChange={handleNameChange}
           autoComplete="default"
           error={getErrorMessageByFieldName('name')}
+          disabled={isSubmitting}
         />
       </FormGroup>
 
@@ -112,6 +118,7 @@ export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
           onChange={handleEmailChange}
           autoComplete="default"
           error={getErrorMessageByFieldName('email')}
+          disabled={isSubmitting}
         />
       </FormGroup>
 
@@ -122,6 +129,7 @@ export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
           onChange={handlePhoneChange}
           autoComplete="default"
           maxLength={15}
+          disabled={isSubmitting}
         />
       </FormGroup>
 
@@ -129,7 +137,7 @@ export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
         <Select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
-          disabled={isLoadingCategories}
+          disabled={isLoadingCategories || isSubmitting}
         >
           <option value="">Sem categoria</option>
 
@@ -141,8 +149,8 @@ export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
       </FormGroup>
 
       <ButtonContainer>
-        <Button type="submit" disabled={!isFormValid}>
-          {buttonLabel}
+        <Button type="submit" disabled={!isFormValid} isLoading={isSubmitting}>
+          {!isSubmitting && buttonLabel}
         </Button>
       </ButtonContainer>
     </Form>

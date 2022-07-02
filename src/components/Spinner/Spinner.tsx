@@ -1,7 +1,7 @@
 import { StyledSpinner } from './style';
 
 type SpinnerProps = {
-  size: number
+  size?: number
 };
 
 export function Spinner({ size = 32 }:SpinnerProps) {

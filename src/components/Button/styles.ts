@@ -6,7 +6,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   ghost?: boolean;
 };
 
-export const Button = styled.button<ButtonProps>`
+export const StyledButton = styled.button<ButtonProps>`
   height: 52px;
   border: none;
   background: ${({ theme }) => theme.colors.primary.main};
@@ -17,6 +17,9 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 4px;
   padding: 0 16px;
   transition: background 0.2s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background: ${({ theme }) => theme.colors.primary.light};

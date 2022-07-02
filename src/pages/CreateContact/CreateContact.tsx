@@ -1,12 +1,9 @@
-import { useHistory } from 'react-router-dom';
 import {
   PageWrapper, PageHeader, ContactForm, ContactDTO,
 } from 'components';
 import ContactsService from 'services/ContactsService';
 
 export function CreateContact() {
-  const history = useHistory();
-
   async function handleSubmit(formData: ContactDTO) {
     try {
       const contact = {
@@ -17,8 +14,6 @@ export function CreateContact() {
       };
 
       await ContactsService.createContacts(contact);
-
-      history.push('/');
     } catch {
       // eslint-disable-next-line no-alert
       alert('Erro ao criar contato');

@@ -19,6 +19,7 @@ export const Select = styled.select<SelectHTMLAttributes<HTMLSelectElement>>`
 
   &:disabled {
     background: ${({ theme }) => theme.colors.gray.lighter};
-    border-color: ${({ theme }) => theme.colors.gray.light}
+    border-color: ${({ theme }) => theme.colors.gray.light};
+    opacity: 1;
   }
 `;

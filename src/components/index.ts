@@ -10,3 +10,4 @@ export * from './Modal';
 export * from './ReactPortal';
 export * from './Loader';
 export * from './Spinner';
+export * from './Button';
