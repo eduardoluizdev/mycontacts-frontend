@@ -1,10 +1,10 @@
-import { ContactForm, PageHeader, PageWrapper } from 'components';
+import { PageHeader, PageWrapper } from 'components';
 
 export function EditContact() {
   return (
     <PageWrapper>
       <PageHeader title="Editar Eduardo Luiz" />
-      <ContactForm buttonLabel="Salvar alterações" />
+      {/* <ContactForm buttonLabel="Salvar alterações" /> */}
     </PageWrapper>
   );
 }

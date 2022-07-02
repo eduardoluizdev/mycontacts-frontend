@@ -4,12 +4,21 @@ import {
 import { useErrors } from 'hooks';
 import { isEmailValid } from 'utils';
 import CategoriesService from 'services/CategoriesService';
+import formatPhone from 'utils/formatPhone';
 import { FormGroup } from '..';
 import { Button, Input, Select } from '../FormElements';
 import { Container as Form, ButtonContainer } from './style';
 
 type ContactFormProps = {
   buttonLabel: string
+  onSubmit: (formData:ContactDTO) => void
+};
+
+export type ContactDTO = {
+  name: string
+  email: string
+  phone: string
+  categoryId: string
 };
 
 type CategoryProps = {
@@ -17,7 +26,7 @@ type CategoryProps = {
   name: string
 };
 
-export function ContactForm({ buttonLabel }:ContactFormProps) {
+export function ContactForm({ buttonLabel, onSubmit }:ContactFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -69,10 +78,14 @@ export function ContactForm({ buttonLabel }:ContactFormProps) {
     removeError('email');
   }
 
+  function handlePhoneChange({ target }:ChangeEvent<HTMLInputElement>) {
+    setPhone(formatPhone(target.value));
+  }
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    console.log({
+    onSubmit({
       name,
       email,
       phone,
@@ -84,7 +97,7 @@ export function ContactForm({ buttonLabel }:ContactFormProps) {
     <Form onSubmit={handleSubmit}>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
-          placeholder="Nome"
+          placeholder="Nome *"
           value={name}
           onChange={handleNameChange}
           autoComplete="default"
@@ -106,8 +119,9 @@ export function ContactForm({ buttonLabel }:ContactFormProps) {
         <Input
           placeholder="Telefone"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={handlePhoneChange}
           autoComplete="default"
+          maxLength={15}
         />
       </FormGroup>
 
