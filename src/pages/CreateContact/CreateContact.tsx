@@ -2,6 +2,7 @@ import {
   PageWrapper, PageHeader, ContactForm, ContactDTO,
 } from 'components';
 import ContactsService from 'services/ContactsService';
+import { toast } from 'utils/Toast';
 
 export function CreateContact() {
   async function handleSubmit(formData: ContactDTO) {
@@ -14,9 +15,16 @@ export function CreateContact() {
       };
 
       await ContactsService.createContacts(contact);
+
+      toast({
+        type: 'success',
+        text: 'Contato cadastrado com sucesso!',
+      });
     } catch {
-      // eslint-disable-next-line no-alert
-      alert('Erro ao criar contato');
+      toast({
+        type: 'danger',
+        text: 'Ocorreu um erro ao cadastrar o contato!',
+      });
     }
   }
 

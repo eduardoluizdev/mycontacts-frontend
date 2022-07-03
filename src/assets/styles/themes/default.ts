@@ -12,6 +12,9 @@ const defaultTheme = {
       main: '#FC5050',
       dark: '#F63131',
     },
+    success: {
+      main: '#51CA73',
+    },
     gray: {
       lighter: '#E5E5E5',
       light: '#BCBCBC',
