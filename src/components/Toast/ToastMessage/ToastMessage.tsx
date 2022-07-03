@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Container } from './style';
 import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
@@ -7,6 +8,7 @@ export type ToastMessageProps = {
     id: number
     text: string
     type?: 'default' | 'danger' | 'success'
+    duration: number
   },
 
   onRemoveMessage: (messageId:number) => void
@@ -15,7 +17,19 @@ export type ToastMessageProps = {
 export function ToastMessage({
   message, onRemoveMessage,
 }:ToastMessageProps) {
-  const { id, text, type = 'default' } = message;
+  const {
+    id, text, type = 'default',
+  } = message;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onRemoveMessage(message.id);
+    }, message.duration || 7000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [message, onRemoveMessage]);
 
   function handleRemoveToast() {
     onRemoveMessage(id);
