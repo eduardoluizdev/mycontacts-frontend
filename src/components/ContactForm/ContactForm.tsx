@@ -2,9 +2,8 @@ import {
   ChangeEvent, FormEvent, useEffect, useState,
 } from 'react';
 import { useErrors } from 'hooks';
-import { isEmailValid } from 'utils';
+import { isEmailValid, formatPhone } from 'utils';
 import CategoriesService from 'services/CategoriesService';
-import formatPhone from 'utils/formatPhone';
 import { Button, FormGroup } from '..';
 import { Input, Select } from '../FormElements';
 import { Container as Form, ButtonContainer } from './style';

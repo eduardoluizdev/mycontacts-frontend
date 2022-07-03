@@ -1,5 +1,5 @@
 import APIError from 'errors/APIError';
-import delay from 'utils/delay';
+import { delay } from 'utils';
 
 type JSONValue =
     | string

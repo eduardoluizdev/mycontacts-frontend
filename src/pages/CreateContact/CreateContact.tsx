@@ -2,7 +2,7 @@ import {
   PageWrapper, PageHeader, ContactForm, ContactDTO,
 } from 'components';
 import ContactsService from 'services/ContactsService';
-import { toast } from 'utils/Toast';
+import { toast } from 'utils';
 
 export function CreateContact() {
   async function handleSubmit(formData: ContactDTO) {
