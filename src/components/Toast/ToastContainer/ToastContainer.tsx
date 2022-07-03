@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toastEventManager } from 'utils';
-import { ToastMessage, ToastMessageProps } from '../ToastMessage';
+import { ToastMessage } from '../ToastMessage';
 import { Container } from './style';
 
 type MessageProps = {
@@ -13,7 +13,7 @@ export function ToastContainer() {
   const [messages, setMessages] = useState<MessageProps[]>([]);
 
   useEffect(() => {
-    function handleAddToast({ type, text }:ToastMessageProps) {
+    function handleAddToast({ type, text }:MessageProps) {
       setMessages((prevStart) => [
         ...prevStart,
         { id: Math.random(), text, type },
@@ -27,13 +27,17 @@ export function ToastContainer() {
     };
   }, []);
 
+  function handleRemoveMessage(messageId:number) {
+    setMessages((prevStart) => prevStart.filter(({ id }) => id !== messageId));
+  }
+
   return (
     <Container>
       {messages.map((message) => (
         <ToastMessage
           key={message.id}
-          type={message.type}
-          text={message.text}
+          message={message}
+          onRemoveMessage={handleRemoveMessage}
         />
       ))}
 

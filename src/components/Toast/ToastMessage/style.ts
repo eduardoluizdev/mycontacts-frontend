@@ -25,6 +25,7 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  cursor: pointer;
 
   box-shadow: 0px 20px 20px -16px rgba(0, 0, 0, 0.25);
 

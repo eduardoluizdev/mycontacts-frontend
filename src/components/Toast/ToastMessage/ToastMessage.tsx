@@ -3,13 +3,26 @@ import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
 
 export type ToastMessageProps = {
-  text: string
-  type?: 'default' | 'danger' | 'success'
+  message: {
+    id: number
+    text: string
+    type?: 'default' | 'danger' | 'success'
+  },
+
+  onRemoveMessage: (messageId:number) => void
 };
 
-export function ToastMessage({ text, type = 'default' }:ToastMessageProps) {
+export function ToastMessage({
+  message, onRemoveMessage,
+}:ToastMessageProps) {
+  const { id, text, type = 'default' } = message;
+
+  function handleRemoveToast() {
+    onRemoveMessage(id);
+  }
+
   return (
-    <Container type={type}>
+    <Container type={type} onClick={handleRemoveToast}>
       {type === 'danger' && <img src={xCircleIcon} alt="Error" />}
       {type === 'success' && <img src={checkCircleIcon} alt="Success" />}
       <strong>{text}</strong>

@@ -1,7 +1,9 @@
-import { ToastMessageProps } from 'components';
 import EventManager from 'lib/EventManager';
 
-type ToastProps = ToastMessageProps;
+type ToastProps = {
+  text: string;
+  type: 'default' | 'danger' | 'success';
+};
 
 export const toastEventManager = new EventManager();
 
