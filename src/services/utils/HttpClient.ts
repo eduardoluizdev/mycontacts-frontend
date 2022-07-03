@@ -1,7 +1,7 @@
 import APIError from 'errors/APIError';
 import delay from 'utils/delay';
 
-export type JSONValue =
+type JSONValue =
     | string
     | number
     | boolean
@@ -45,7 +45,7 @@ class HttpClient {
   }
 
   async makeRequest(path: string, options: MakeRequestProps) {
-    await delay(3500);
+    await delay(500);
 
     const headers = new Headers();
 
